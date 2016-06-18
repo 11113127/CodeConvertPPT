@@ -15,7 +15,6 @@
         var numberColor = document.querySelector("#numberColor").value; //側邊數字
         var codeContent = document.querySelector("#codeContent").value;
         var codeArray = codeContent.split("\n");
-
         var showContent = "<table>";
         for (i = 0; i < codeArray.length; i++) {
           showContent += "<tr>";
@@ -30,6 +29,9 @@
           if (codeArray[i].length != 0) {
             var startWord = 0;
             for (j = 0; j < codeArray[i].length; j++) {
+              // codeArray[i].replace(/[\u00A0-\u9999<>\&]/gim, function(i) {
+              //   return '&#'+i.charCodeAt(0)+';';
+              // })
               var checkSpace = codeArray[i].substring(j, j + 1);
               if (/\t/.test(checkSpace)) {
                 spaceContent += "&nbsp;&nbsp;&nbsp;&nbsp;";
@@ -40,7 +42,9 @@
                 break;
               }
             }
-            var codeStr = codeArray[i].substring(startWord)
+            var codeStr = codeArray[i].replace(/[\u00A0-\u9999<>\&]/gim, function(i) {
+              return '&#'+i.charCodeAt(0)+';';
+            }).substring(startWord)
 
             spaceContent += allDefineWord(codeStr);
 
